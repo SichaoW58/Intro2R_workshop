@@ -3,12 +3,11 @@ sidebar: false
 toc: false
 ---
 
-
-## Introduction to R
+# Introduction to R for Researchers
 
 | Audience   | Computational skills required | Duration                                                   |
 |:---------------------|:---------------------------|:---------------------|
-| Biologists | None                          | 4-session online workshop (\~ 8 hours of trainer-led time) |
+| Researchers | None                          | 3 hours |
 
 ### Description
 
@@ -18,35 +17,40 @@ This repository has teaching materials for a hands-on **Introduction to R** work
 
 ### Learning Objectives
 
-1.  **R syntax**: Familiarize the basic syntax and the use of Rstudio.
-2.  **Data types and data structures**: Describe frequently-used data types and data structures in R.
-3.  **Data inspection and wrangling**: Demonstrate the utilization of functions and indices to inspect and subset data from various data structures.
-4.  **Data visualization**: Apply the ggplot2 package to create plots for data visualization.
+1. **R and R Studio:** Familiarize with R and RStudio and navigate the RStudio.
+2. **R data types and structures:** Understand the frequently-used data types and data structures in R.
+3. **Data manipulation essentials:** Demonstrate the use of functions for wrangling data from various data structures.
+4. **Data visualization (Optional):** Simple visualization using the ggplot2 package.
 
 ### Lessons
 
-- [Workshop schedule (trainer-led learning)](schedule/schedule.qmd)
-- [Self-learning](schedule/links-to-lessons.qmd)
+- [Workshop schedule](schedule/schedule.qmd)
+
 
 ### Installation Requirements
 
-Download the most recent versions of R and RStudio for the appropriate OS using the links below:
+Please install R and RStudio before the 'Introduction to R For Researchers' workshop. Ensure that both programs are running correctly on your machine. If you encounter any technical difficulties during the installation, please contact the IT department within your specific department for assistance.
 
--   [R](https://cran.r-project.org/)
--   [RStudio](https://www.rstudio.com/products/rstudio/download/#download)
+### Installing R
+
+It is straightforward installing R on your machine. Follow these steps:
+
+1.	Go to the CRAN (Comprehensive R Archive Network) [R website](https://cran.r-project.org/).
+2.	Choose to download R for Linux, Mac or Windows. Latest version: R-4.6.0 (released on 2026-04-24, Because it was There).
+3.	For Windows users, just install ‘base’ and this will link you to the download file.
+4.	For Mac users, make sure you download the right version for your CPU.
+
+
+### Installing RStudio
+RStudio is the most popular integrated development environment (IDE) for R. It makes working with R easier, more productive, and organized, especially for new users.
+
+Install steps:
+1.	Go to the RStudio download website [(Posit)](https://posit.co/download/rstudio-desktop/).
+2.	Choose the ‘Installers for your system’ to download
+3.	Install RStudio as per the instructions.
 
 ### Dataset
 
-All the files used for the above lessons are linked within, but can also be [accessed here](https://www.dropbox.com/scl/fi/yszqm3ri6p4uf5ppuflp1/data.zip?rlkey=c496frt1ioud8rrbo9ea1614p&st=fw7fhif8&dl=1).
+All the files used for the above workshop are linked within, but can also be [downloaded]().
 
-------------------------------------------------------------------------
 
-### Citation
-
-To cite material from this course in your publications, please use:
-
-::: callout-important
-Meeta Mistry, Mary Piper, Jihe Liu, & Radhika Khetani. (2021, May 5). *hbctraining/Intro-to-R-flipped: R workshop first release*. Zenodo. https://doi.org/10.5281/zenodo.4739342. RRID:SCR_025373
-:::
-
-A lot of time and effort went into the preparation of these materials. Citations help us understand the needs of the community, gain recognition for our work, and attract further funding to support our teaching activities. Thank you for citing this material if it helped you in your data analysis.
