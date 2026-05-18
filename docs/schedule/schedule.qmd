@@ -14,16 +14,16 @@ editor:
 | Time | Topic | Instructor |
 |:-----------------:|:------------------------------------:|:-------------:|
 | 12:00 - 12:45 | [Workshop Introduction](../slides/Intro2R4researchers_workshop.pdf) | Sichao |
-| 12:45 - 2:45 | [Hands-on R and RStudio](../lessons/Intro-to-R.qmd) | Sichao |
+| 12:45 - 2:45 | [Hands-on download all lessons](../lessons/lessons.zip) | Sichao |
 | 2:45 - 3:00 | Questions and Wrap-up | Sichao |
 
 
 ## Resources
 
--   [Materials]()
+-   [Download the lessons folder](../lessons/lessons.zip)
 
 ## Cheatsheets
 
--   [base R cheatsheet](../lessons/cheatsheets/base-r.pdf)
+-   [base R cheatsheet](../lessons/cheatsheets/base-r-cheat-sheet.pdf)
 -   [RStudio cheatsheet](../lessons/cheatsheets/rstudio-ide.pdf)
--   [ggplot2 cheatsheet](../lessons/cheatsheets/data-visualization-2.1.pdf)
+-   [ggplot2 cheatsheet](../lessons/cheatsheets/data-visualization.pdf)
