@@ -14,7 +14,7 @@ editor:
 | Time | Topic | Instructor |
 |:-----------------:|:------------------------------------:|:-------------:|
 | 12:00 - 12:45 | [Workshop Introduction](../slides/Intro2R4researchers_workshop.pdf) | Sichao |
-| 12:45 - 2:45 | [Hands-on download](../codes/codes.zip) ([view](../codes/Intro-to-R.html)) | Sichao |
+| 12:45 - 2:45 | [Hands-on download](../codes/codes.zip) ([view lesson](../codes/Intro-to-R.html)) | Sichao |
 | 2:45 - 3:00 | Questions and Wrap-up | Sichao |
 
 

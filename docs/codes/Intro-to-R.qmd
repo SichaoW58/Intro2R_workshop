@@ -19,13 +19,13 @@ format:
     embed-resources: true 
     theme: default 
 execute: 
-  eval: true 
-  echo: false #fenced
-  output: true 
-  message: false 
-  warning: false 
-  error: false 
-  include: true 
+  eval: false # do not render the code, only include the output in the final document
+  echo: true #shows code in the final document
+  output: true # include the output in the final document
+  message: false  #suppress messages in the final document
+  warning: false  #suppress warnings in the final document
+  error: false  #suppress errors in the final document
+  include: true  # include the code and its output in the final document
 knitr:
   opts_chunk:
     out.width: "150%"
@@ -37,15 +37,17 @@ editor:
 
 # Project title: Intro to R for Researchers
 
-Description: "This is an introduction to R for researchers. It covers the basics of R programming, data manipulation, and data visualization. It also includes some examples of how to use R for data analysis."
-
-
+Quarto document is a markdown-based format for authoring documents, presentations, and websites. There are hierarchical sections, which are defined by the number of #. The more #, the lower level of section. You can use different level of sections to organize your document.
 
 
 # R built-in Help facility
 ## Help functions
 
 ```{r}
+#| label: help-functions
+#| eval: false
+#| echo: true
+
 
 help.start()  # web-based r help pages.
 
@@ -73,6 +75,10 @@ version #check current R version
 ## Demostration
 
 ```{r}
+#| label: demonstration
+#| eval: false
+#| echo: true
+
 demo()
 
 demo(package = .packages(all.available = TRUE))
@@ -95,6 +101,10 @@ demo(plotmath)
 1. atomic *vector*
 
 ```{r}
+#| label: atomic-vector
+#| eval: true
+#| echo: true
+
 z <- rnorm(100)
 ```
 
@@ -103,6 +113,9 @@ z <- rnorm(100)
 
 
 ```{r}
+#| label: matrices-arrays
+#| eval: true
+#| echo: true
 # An array can be considered as a multiply subscripted collection of data entries, for example numeric
 dim(z) <- c(2,5,10) #2 by 5 by 10 array
 ```
@@ -112,11 +125,21 @@ dim(z) <- c(2,5,10) #2 by 5 by 10 array
 order or unorder
 
 ```{r}
-# unordered
+#| label: factors
+#| eval: true
+#| echo: true
+# unordered character vector, c() is canoncatenate function, which can combine values into a vector or list.
+
+
 fruits <- c("blueberry","strawberry","apple","pineapple","watermelon")
 fruits_f <- factor(fruits)
 
+
+# notice that the default order of levels is alphabetic, which might not be what we want. 
 levels(fruits_f)
+
+
+# We can change the order of levels by assign new levels to the factor object.
 
 levels(fruits_f) <- c("blueberry","strawberry","apple","pineapple","watermelon")
 
@@ -131,8 +154,12 @@ levels(fruits_order) <- c("blueberry","strawberry","apple","pineapple","watermel
 
 fruits_order
 
-unclass(fruits_order) #removes the "class" attribute from an object.
+#removes the "class" attribute from an object. It reveals the underlying code of ordered factor, which is an integer vector with attributes of levels and class.
 
+unclass(fruits_order) 
+
+
+# convert ordered factored into numeric vector.
 as.numeric(fruits_order)
 ```
 
@@ -141,24 +168,39 @@ as.numeric(fruits_order)
 
 
 ```{r}
-Lst <- list(student="Joe", subject="Math", no.exam=3, scores=c(85,89,93))
+#| label: lists
+#| eval: false
+#| echo: true
 
-Lst[[2]]
-Lst$subject
-Lst[["subject"]]
 
-Lst[[4]][1]
-Lst$scores[1]
-Lst[["scores"]][1]
+# Put different types of objects into a list. A list can contain any type of object, including other lists. It is a very flexible data structure in R.
+list0 <- list(student="Joe", subject="Math", no.exam=3, scores=c(85,89,93))
+
+
+# indexing a list is different from indexing a vector. For a list, single square brackets [ ] will return a sublist, while double square brackets [[ ]] will return the actual element.
+
+
+list0[[2]]
+
+
+list0$subject
+list0[["subject"]]
+
+list0[[4]][1]
+list0$scores[1]
+list0[["scores"]][1]
 
 ```
 
 
 5. *data frames* are matrix-like structures (2 dimension), in which the columns can be of different types. 
 
-A data frame may for many purposes be regarded as a matrix with columns possibly of differing modes and attributes. It may be displayed in matrix form, and its rows and columns extracted using matrix indexing conventions
+A data frame may for many purposes be regarded as a matrix with columns possibly of differing data types. It may be displayed in matrix form, and its rows and columns extracted using matrix indexing conventions
 
 ```{r}
+#| label: data-frames
+#| eval: true
+#| echo: true
 fruits <- data.frame(names=c("blueberry","apple","pineapple"),
                      color=c("blue","red","pineapple"),
                      weigh_lb=c(0.05,0.5,5))
@@ -170,18 +212,17 @@ fruits <- data.frame(names=c("blueberry","apple","pineapple"),
 All objects in R have a class, reported by the function class. For simple vectors this is just the mode, for example "numeric", "logical", "character" or "list", but "matrix", "array", "factor" and "data.frame" are other possible values
 
 
-### Proporties of object
-
+### Properties of object
 
 ```{r}
-
-
+#| label: object-properties
+#| eval: false
+#| echo: true
 mode(z) # the type of atomic component
 
 length(z) # how many of the basic component
 
-
-attr(z, "dim") <- c(10,10)
+attr(z, "dim") <- c(10,10) # add dimension attribute to z, which is now a matrix. 
 
 attributes(z)
 
@@ -190,29 +231,43 @@ attributes(z)
 ### Demo for object 
 
 ```{r}
+#| label: object-demo
+#| eval: true
+#| echo: true
+# create a numeric vector of 100 random normal values named x.
+
 x <- rnorm(100) 
+
+# Then use x as input for generate another numeric vector named y, which is also a random normal vector with mean of x.
+
+
 y <- rnorm(x)
 
 plot(x, y)
 
-ls() # list all the objects lives in the environment.
+# ls() # list all the objects lives in the environment.
 rm(x, y) # delete objects from environment.
 ```
 
 
 
 ```{r}
-x <- 1:20
+#| label: linear-regression-demo
+#| eval: false
+#| echo: true
+x <- 1:20 # create a numeric vector of 20 integers from 1 to 20.
 w <- 1 + sqrt(x)/2
 dummy <- data.frame(x=x, y= x + rnorm(x)*w)
 dummy
-fm <- lm(y ~ x, data=dummy) 
+fm <- lm(y ~ x, data=dummy) # fit a linear regression model with y as outcome and x as predictor, and save the fitted model as fm.
 summary(fm)
 
-fm1 <- lm(y ~ x, data=dummy, weight=1/w^2)
+fm1 <- lm(y ~ x, data=dummy, weight=1/w^2) # fit a weighted linear regression model with y as outcome and x as predictor, and save the fitted model as fm1.
 summary(fm1)
 attach(dummy) #Make the columns in the data frame visible as variables.
 
+
+# scatter plot with lowess curve and regression line.
 lrf <- lowess(x, y)
 plot(x, y)
 lines(x, lrf$y)
@@ -238,21 +293,27 @@ rm(fm, fm1, lrf, x, dummy)
 ```
 
 
-## Data types
+## Data modes/types
 
 ### numeric
 
 ```{r}
+#| label: numeric-type
+#| eval: false
+#| echo: true
+
 a<-2
 b <- a
 class(a)
 
-# numeric vector
-vec1<-c(1,2,3,4,5,6)
-vec2<-c(1,2)
+# integer vector
+vec1<-c(1L,2L,3L,4L,5L,6L)
+
+vec2<-c(1L,2L)
 
 class(vec1)
 
+# recyling rule: when two vectors have different length, the shorter one will be recycled to match the length of the longer one. If the length of the longer vector is not a multiple of the shorter one, a warning will be issued.
 vec1 + vec1 
 
 vec1 / vec2  # notice that shorter vector will be recycled for operation.
@@ -275,27 +336,37 @@ There are some common mathematical operator we can apply to numeric, such as  +,
 ### Character string
 
 ```{r}
+#| label: character-string
 ?Quotes
 
-char1 <- "Epi"  
+# use can use double quotes or single quotes to create character string. If you want to use the quote itself, you can use the other type of quote to create the string, or you can use escape character \ to escape the quote.
+greet <- "hello world"  
 
-class(char1)
+class(greet)
 
-char2 <- 'Epi'
+greet2 <- 'hello world'
 
-char3 <- '"Epi"'
+greet3 <- '"hello world"'
 
+greet4 <- "hello \"world\""
+
+difference of greet3 <- '"hello world"' and greet4 <- "hello \"world\""
 
 ```
 
 ### logical
 
 ```{r}
+#| label: logical-type
+#| eval: false
+#| echo: true
+
 logical1 <- TRUE
 logical2 <- FALSE
 
 class(logical2)
 
+# stored as numeric vector with 0 for FALSE and 1 for TRUE, so we can do mathematical operation on logical vector. This is often used in data manipulation, such as subsetting data by condition, or calculating the proportion of missing data.
 logical1+logical2
 
 
@@ -315,13 +386,17 @@ There are also data type as integer, complex and raw, which are not very commonl
 
 ### Missing data
 
-In general any operation on an NA becomes an NA, x == NA is quite different from is.na(x).
-Not a Number, NaN, like denomitor is 0. In summary, is.na(xx) is TRUE both for NA and NaN values. To differentiate these, is.nan(xx) is only TRUE for NaNs.
+In general, any mathematical or logical operation involving an `NA` results in an `NA`. For this reason, checking for missing values with `x == NA` will not work; you must use `is.na(x)` instead. R also uses `NaN` (Not a Number) for undefined mathematical operations, such as dividing by zero. Note that `is.na(x)` returns `TRUE` for both `NA` and `NaN` values. To specifically identify `NaN` values, use `is.nan(x)`.
 
 ```{r}
+#| label: missing-data
+#| eval: false
+#| echo: true
+
+
 z <- c(1:3,NA); ind <- is.na(z)
 
-z == NA
+z == NA #NA basically an unknown value, so we cannot know if it is equal to NA or not. So it returns NA.
 ```
 
 
@@ -329,13 +404,17 @@ z == NA
 
 
 ```{r}
-x <- c(rnorm(10))
+#| label: indexing
+#| eval: false
+#| echo: true
+
+x <- rnorm(10)
 
 # by index number
 x[1:3] # A vector of positive integral quantities select by position
 x[-3]  # A vector of negative integral quantities deselect by position
 
-# by conditional
+# by conditional, combine logical operator and indexing to subset data by condition. This is very useful for data manipulation, such as subsetting data by condition, or calculating the proportion of missing data. ! is negate operator.
 y <- x[!is.na(x)&x>0] 
 
 # by name
@@ -348,8 +427,6 @@ lunch <- fruit[c("apple","orange")]
 x[2] <- 44 # replace an element.
 x[11] <- 100 # extend vector. 
 
-
-
 ```
 
 Some conditional ooperator  <, <=, >, >=, == for exact equality and != for inequality
@@ -357,11 +434,15 @@ c1 & c2 is their intersection (“and”), c1 | c2 is their union (“or”), an
 
 ## Distribution
 
-Prefix the name given here by ‘d’ for the density, ‘p’ for the CDF, ‘q’ for the quantile function and ‘r’ for simulation (r andom deviates)
+In R, distribution functions use a standard naming convention. Prefix the base name of the distribution with **'d'** for the density, **'p'** for the cumulative distribution function (CDF), **'q'** for the quantile function, and **'r'** for simulation (random deviates).
 
 ```{r}
-2*pt(-2.43, df = 13)
-qf(0.01, 2, 7, lower.tail = FALSE)
+#| label: distributions
+#| eval: false
+#| echo: true
+
+2*pt(-2.43, df = 13) # gives the two-tailed p-value for a t-test with 13 degrees of freedom and a t-statistic of -2.43.
+qf(0.01, 2, 7, lower.tail = FALSE) # gives the critical value of the F-distribution with 2 and 7 degrees of freedom at the 1% significance level (upper tail).
 ```
 
 
@@ -379,6 +460,10 @@ There are a few ways to import/load dataset into your workspace.
 
 
 ```{r}
+#| label: import-data
+#| eval: true
+#| echo: true
+
 # 1. load dataset from your local directory.
 # Depends on the data format, you might need different function from different package to load data. Common package readxl for xls and xlsx files. Package data.table for big data.
 
@@ -397,7 +482,7 @@ dat_abm <- read_csv("abm_short.csv", col_types = cols(casenum = col_character(),
 # depends on the online data format, typically you will put the url into the function for that format.
 
 
-# 3. load dataset from package.
+# 3. load dataset from package. install the package from github.
 # remotes::install_github("higgi13425/medicaldata")
 
 
@@ -423,12 +508,15 @@ dat_abm <- readRDS(file = "dat_abm.rds")
 
 # ??abm
 
+# abm data is from medicaldata package, which is a simulated dataset of 1000 patients with acute bacterial meningitis (ABM). It contains 20 variables, including demographic information, clinical features, laboratory results, and outcomes.
 ```
 
 ## Data structure
 
 ```{r}
-
+#| label: data-structure
+#| eval: false
+#| echo: true
 # dimension
 dim(dat_abm)
 
@@ -439,7 +527,7 @@ str(dat_abm)
 colnames(dat_abm)
 
 #change column names
-colnames(dat_abm)[1] <- "num"
+colnames(dat_abm)[1] <- "id"
 
 # print out the dataset can know a lot of info.
 dat_abm
@@ -449,8 +537,17 @@ dat_abm
 ## 5 big verses from tidyverse
 
 ```{r}
-library(tidyverse)
+#| label: tidyverse-verbs
+#| eval: false
+#| echo: true
 
+#install.packages("tidyverse") #1st time require installing the package.
+
+
+library(tidyverse) # typically we load all the required package at the beginning of the script, so we do not need to load them one by one later when we need them. Here just for demonstration, we will load tidyverse here.
+
+
+# tibble is a modern reimagining of the data frame, providing a more user-friendly and efficient way to handle tabular data in R. It is part of the tidyverse collection of packages and offers several advantages over traditional data frames, such as better printing, enhanced subsetting, and improved handling of missing values. And won't change character into factor by default, which is a common source of confusion for new R users.
 
 dat_vet <- tibble(
   animal_id = 1:6,
@@ -460,30 +557,37 @@ dat_vet <- tibble(
   clinic_region = c("North", "South", "North", "West", "South", "North")
 )
 
-#1. filter(): Selecting Rows
+#1. filter(): Selecting Rows based on Conditions
 
 dat_vet |>  
   filter(species == "Canine", weight_kg > 25)
 
 
-#2. select(): Choosing Columns
+#2. select(): Choosing Columns by names. you  can use helper function to select columns by pattern, such as starts_with(), ends_with(), contains() and matches().
+
 dat_vet |>  
   select(animal_id, white_cell_count)
 
 
-#3. mutate(): Creating New Variables
+#3. mutate(): Creating New Variables/columns by transforming existing ones
 dat_vet |> 
   mutate(weight_lb = weight_kg * 2.204,
          is_high_count = white_cell_count > 10)
 
 
-#4. summarise(): Collapsing Data to a Value
+#4. summarise(): Collapsing Data to a Value, usally used with group_by() to get summary statistics by group.
 
-dat_vet %>% 
+dat_vet  |>  
   summarise(med_weight = median(weight_kg, na.rm = TRUE),
             total_n = n())
 
-#5. arrange(): Ordering Data
+dat_vet  |>  
+  group_by(species) |>
+  summarise(med_weight = median(weight_kg, na.rm = TRUE),
+            total_n = n())
+
+
+#5. arrange(): Ordering Data acording to values of a variable, default is ascending order, use desc() for descending order.
 dat_vet |>  
   arrange(desc(weight_kg))
 
@@ -495,11 +599,15 @@ dat_vet |>
 ## Missing data
 
 ```{r}
+#| label: check-missing-data
+#| eval: false
+#| echo: true
+
 # some base funtions
 
-is.na(dat_abm) # return TRUE for na
+is.na(dat_abm) # return TRUE for na position.
 
-sum(is.na(dat_abm)) # remeber TRUE forced into 1, so we can get sum.
+sum(is.na(dat_abm)) # TRUE is treated as 1 and FALSE is treated as 0, so sum(is.na(dat_abm)) gives the total number of missing values in the dataset.
 
 #which(is.na(dat_abm)) #this is usually as condition to subset data.
 
@@ -515,12 +623,13 @@ sum(is.na(dat_abm$race))/length(dat_abm$race)
 # 1. apply function way
 
 colSums(is.na(dat_abm))/nrow(dat_abm) # little better
+
+
 # colMeans(is.na(dat_abm))
 # apply(dat_abm, 2,function(x) sum(is.na(x))/length(x))  #basically a apply() function to loop over each variable
 
-# library(tidyverse)
 
-# 2. tidyverse way
+# 2. tidyverse way, much more convenient and easier to read.
 
 dat_abm |> 
   summarise(across(everything(), ~ mean(is.na(.))))
@@ -537,6 +646,10 @@ dat_abm |>
 #### Central tendency
 
 ```{r}
+#| label: central-tendency
+#| eval: false
+#| echo: true
+
 # Mean
 
 mean(dat_abm$age, na.rm=TRUE)  # note that a lot of function return unexpected results if you not pay attention to na.
@@ -602,7 +715,9 @@ dat_abm |>
 #### Dispersion 
 
 ```{r}
-
+#| label: dispersion
+#| eval: false
+#| echo: true
 # standard deviation or variance
 # this is the sample sd and variance, denominator is n-1
 dat_abm |> 
@@ -639,6 +754,12 @@ dat_abm |>
 #### visualization
 
 ```{r}
+#| label: univariate-visualization
+#| eval: true
+#| echo: true
+
+#install.packages("ggplot2") #1st time require installing the package.
+
 library(ggplot2)
 
 # histogram
@@ -670,7 +791,9 @@ ggplot(dat_abm, aes(x=blood_wbc)) +
 #### Frequency and proportion
 
 ```{r}
-
+#| label: categorical-frequency
+#| eval: false
+#| echo: true
 # frequency or proportion for each category for each variable.
 
 # because each variable has different categories we need to summarize one by one
@@ -680,7 +803,7 @@ dat_abm |>
 table(dat_abm$race)
 prop.table(table(dat_abm$race))
 
-# Tidy verse way
+# Tidyverse way
 
 dat_abm |> 
   group_by(race) |> 
@@ -695,18 +818,29 @@ dat_abm |>
 ### Visualization
 
 ```{r}
-#barplot
+#| label: categorical-visualization
+#| eval: true
+#| echo: true
 
-ggplot(dat_abm, aes(x=as.factor(race), fill=as.factor(race))) +  
-  geom_bar( )
+#barplot
+ggplot(dat_abm, aes(x=haven::as_factor(race), fill=haven::as_factor(race))) +
+  geom_bar() +
+  xlab("Race") +
+  ylab("Count") +
+  ggtitle("Barplot for Race") +
+  theme_classic()
+
+
 ```
 
 ### Super easy way to do univariate descriptive analysis.
 
 ```{r}
+#| label: hmisc-univariate
+#| eval: true
+#| echo: true
+
 library(Hmisc)
-
-
 
 d <- dat_abm  |>  
   select(!where(haven::is.labelled)) |>
@@ -726,7 +860,9 @@ Choose a variable as structural variable. They are usaully some categorical vari
 #### Central tendency
 
 ```{r}
-
+#| label: multivariate-central-tendency
+#| eval: true
+#| echo: true
 # We can stratify by race
 
 dat_abm |> 
@@ -739,7 +875,9 @@ dat_abm |>
 #### Dispersion 
 
 ```{r}
-
+#| label: multivariate-dispersion
+#| eval: true
+#| echo: true
 # again stratify by race
 dat_abm |> 
   group_by(race) |> 
@@ -750,10 +888,13 @@ dat_abm |>
 #### visualization
 
 ```{r}
+#| label: multivariate-visualization
+#| eval: true
+#| echo: true
 # Since structural variable is categorical, we can do boxplot, or something similar like violin plot
 
 dat_clean <- dat_abm |> 
-  haven::zap_labels()
+  haven::zap_labels()# remove labels, which is a common source of confusion for new R users, and won't change character into factor by default, which is a common source of confusion for new R users.
 
 
 
@@ -764,12 +905,12 @@ dat_clean |>
     geom_jitter(color="black", size=0.4, alpha=0.9) + # adding datapoints.
     ggtitle("A boxplot for WBC by race")
 
-# ciolin
+# violinplot
 dat_clean |> 
   ggplot( aes(x=race, y=blood_wbc, fill=race)) + # I add not delete NA normally won't include
     geom_violin()+
     geom_jitter(color="black", size=0.4, alpha=0.9) + # adding datapoints.
-    ggtitle("A boxplot for WBC by race")
+    ggtitle("A violinplot for WBC by race")
 
 ```
 
@@ -779,7 +920,9 @@ dat_clean |>
 #### Frequency and proportion
 
 ```{r}
-
+#| label: contingency-table
+#| eval: true
+#| echo: true
 # Stratify categorical variables will involve crosstable.
 
 ## 2 by 2 contigency table
@@ -798,7 +941,10 @@ prop.table(table(dat_abm$race,dat_abm$sex),margin = 2) #margin = 2 specify colum
 #### Visualization
 
 ```{r}
-# remotes::install_github("haleyjeppson/ggmosaic")
+#| label: mosaic-plot
+#| eval: true
+#| echo: true
+# remotes::install_github("haleyjeppson/ggmosaic") # get package from github.
 library(ggmosaic)
 
 dat_clean |> 
@@ -816,6 +962,9 @@ mosaicplot(table(dat_clean$race, dat_clean$abm))
 ### Super easy way to do multivariate descriptive analysis (table).
 
 ```{r}
+#| label: hmisc-multivariate
+#| eval: true
+#| echo: true
 s <-  Hmisc::summaryM(blood_gluc+blood_neut_pct+blood_wbc+age~ abm, data=dat_abm, overall=TRUE, test = TRUE )
 
 
@@ -840,6 +989,10 @@ Hmisc::html(
 ### Correlation
 
 ```{r}
+#| label: correlation
+#| eval: true
+#| echo: true
+
 # A lot of time we want to check correlation between continuous variable, especially for predictors. 
 
 # In ABM dataset we assume all the continous variables are candidate preditors. Normally, we will decide which ones are candidate variables if too many of them.
@@ -855,6 +1008,9 @@ cor(dat_abm %>% select_if(is.numeric), method = c("spearman"),use= "pairwise.com
 ### Visualiziton
 
 ```{r warning=FALSE}
+#| label: ggpairs-visualization
+#| eval: true
+#| echo: true
 library(GGally)
 
 # Let's just show a few
@@ -866,6 +1022,3 @@ ggpairs( title="correlogram with ggpairs()")
 
 
 ## A lot of more to explore!!!
-
-
-
