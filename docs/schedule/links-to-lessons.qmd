@@ -36,9 +36,9 @@ Install steps:
 3.	Install RStudio as per the instructions.
 
 
-## Codes
+## Materials
 
-1. [Introduction to R and RStudio](../codes/Intro-to-R.qmd)
+1. [Introduction to R](../codes/codes.zip)
 
 
 ## Cheatsheets
