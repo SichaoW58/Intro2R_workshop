@@ -13,7 +13,7 @@ toc: false
 
 This repository has teaching materials for a hands-on **Introduction to R for Researchers** workshop. The workshop will introduce participants to the basics of R and RStudio. R is a simple programming environment that enables the effective handling of data, while providing excellent graphical support. RStudio is a tool that provides a user-friendly environment for working with R. These materials are intended to provide both basic R programming knowledge and its application for increasing efficiency for data analysis.
 
-**Note for participants:** No prior experience with R is required for this workshop. We will walk through the hands-on exercises together, and you will have the opportunity to ask questions and get help along the way.
+**Note for participants:** No prior experience with R is required for this workshop. We will walk through the hands-on exercises together. No need to preview the materials before the workshop.
 
 ### Learning Objectives
 
