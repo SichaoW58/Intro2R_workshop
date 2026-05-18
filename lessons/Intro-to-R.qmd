@@ -59,8 +59,8 @@ methods(class="data.frame") #showing generic function for data.frame class
 
 methods(plot) #what class generic function takes
 
-print.data.frame() #handles data frames
-print.lm() #handles linear model results
+getS3method("print", "data.frame") #method used for data frames
+getS3method("print", "lm") #method used for linear model results
 
 plot #  UseMethod("plot") means generic
 

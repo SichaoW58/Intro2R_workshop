@@ -1,0 +1,42 @@
+# Introduction to R For Researchers
+
+## Learning Objectives
+
+- **R and R Studio:** Familiarize with R and RStudio and navigate the RStudio.
+- **R data types and structures:** Understand the frequently-used data types and data structures in R.
+- **Data manipulation essentials:** Demonstrate the use of functions for wrangling data from various data structures.
+- **Data visualization (Optional):** Simple visualization using the ggplot2 package.
+
+## Installations
+
+Please install R and RStudio before the 'Introduction to R For Researchers' workshop. Ensure that both programs are running correctly on your machine. If you encounter any technical difficulties during the installation, please contact the IT department within your specific department for assistance.
+
+### Installing R
+
+It is straightforward installing R on your machine. Follow these steps:
+
+1.	Go to the CRAN (Comprehensive R Archive Network) [R website](https://cran.r-project.org/).
+2.	Choose to download R for Linux, Mac or Windows. Latest version: R-4.6.0 (released on 2026-04-24, Because it was There).
+3.	For Windows users, just install ‘base’ and this will link you to the download file.
+4.	For Mac users, make sure you download the right version for your CPU.
+
+
+### Installing RStudio
+RStudio is the most popular integrated development environment (IDE) for R. It makes working with R easier, more productive, and organized, especially for new users.
+
+Install steps:
+1.	Go to the RStudio download website [(Posit)](https://posit.co/download/rstudio-desktop/).
+2.	Choose the ‘Installers for your system’ to download
+3.	Install RStudio as per the instructions.
+
+
+## Lessons
+
+1. [Introduction to R and RStudio](../lessons/Intro-to-R.qmd)
+
+
+## Cheatsheets
+
+-   [base R cheatsheet](../lessons/cheatsheets/base-r.pdf)
+-   [RStudio cheatsheet](../lessons/cheatsheets/rstudio-ide.pdf)
+-   [ggplot2 cheatsheet](../lessons/cheatsheets/data-visualization-2.1.pdf)

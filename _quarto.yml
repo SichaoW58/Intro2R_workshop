@@ -1,6 +1,10 @@
 project:
   type: website
   output-dir: docs
+  render:
+    - index.qmd
+    - lessons/*.qmd
+    - schedule/*.qmd
   resources:
     - img/
     - css/
