@@ -4,9 +4,9 @@ output: html_document
 date: "2026-05-21"
 ---
 
-# PRoject 1
+# Project title: Intro to R for Researchers
 
-Description
+This three-hour workshop is designed to provide new users with a clear path from their first lines of code to practical research applications. We will guide you through the Initial Data Analysis Framework, ensuring you develop a reproducible workflow from day one. Through guided, hands-on practice, we cover the entire process from the first time you open RStudio to producing your first set of visualizations. By the end of the session, you will have the "best-practice" toolkit needed to minimize common frustrations and kick off your own data projects with confidence. 
 
 
 

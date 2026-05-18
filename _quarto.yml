@@ -10,7 +10,7 @@ project:
 
 website:
   title: "Introduction to R for Researchers"
-  site-url: https://github.com/SichaoW58/Intro2R_workshop
+  site-url: https://sichaow58.github.io/Intro2R_workshop/
   google-analytics: G-68JBPLLNLG
   page-footer: >
       This workshop has been developed by members of CSTAT at Michigan State University [CSTAT](https://cstat.msu.edu/)

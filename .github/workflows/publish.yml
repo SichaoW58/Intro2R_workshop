@@ -1,5 +1,8 @@
 name: Publish Quarto Site
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 on:
   push:
     branches:
@@ -20,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2

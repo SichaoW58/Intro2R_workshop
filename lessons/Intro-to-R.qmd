@@ -37,8 +37,10 @@ editor:
     wrap: sentence
 ---
 
+# Project title: Intro to R for Researchers
 
 Description: "This is an introduction to R for researchers. It covers the basics of R programming, data manipulation, and data visualization. It also includes some examples of how to use R for data analysis."
+
 
 
 
