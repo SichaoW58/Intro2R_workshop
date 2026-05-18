@@ -1,0 +1,853 @@
+---
+title: "Intro to R for Researchers"
+output: html_document
+date: "2026-05-21"
+---
+
+# PRoject 1
+
+Description
+
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+### chunk option
+# echo = TRUE shows code, =FALSE only shows result.
+# include = FALSE shows nothing run code.
+# eval= FALSE does not run the code.
+
+## https://yihui.org/knitr/options/ shows different options.
+
+```
+
+
+
+
+# R built-in Help facility
+## Help functions
+
+```{r}
+help.start()  # web-based r help pages.
+
+help(mean)    # bring up the help for the specific function in the help panel.
+
+?mean         # alternative way of help(mean)
+
+
+methods(class="data.frame") #showing generic function for data.frame class
+
+methods(plot) #what class generic function takes
+
+print.data.frame() #handles data frames
+print.lm() #handles linear model results
+
+plot #  UseMethod("plot") means generic
+
+getAnywhere("plot.acf")
+
+version #check current R version
+
+```
+
+
+## Demostration
+
+```{r}
+demo()
+
+demo(package = .packages(all.available = TRUE))
+
+demo(lm.glm)
+# demo(notebook,package = "knitr")
+
+help(plotmath)
+example(plotmath)
+demo(plotmath)
+```
+
+
+# Key concepts
+
+## Objects
+
+### Types of object
+
+1. atomic *vector*
+
+```{r}
+z <- rnorm(100)
+```
+
+
+2. *matrices* or more generally *arrays* are multi-dimensional generalizations of vectors.
+
+
+```{r}
+# An array can be considered as a multiply subscripted collection of data entries, for example numeric
+dim(z) <- c(2,5,10) #2 by 5 by 10 array
+```
+
+3. *factors* provides compact ways to handle categorical data
+
+order or unorder
+
+```{r}
+# unordered
+fruits <- c("blueberry","strawberry","apple","pineapple","watermelon")
+fruits_f <- factor(fruits)
+
+levels(fruits_f)
+
+levels(fruits_f) <- c("blueberry","strawberry","apple","pineapple","watermelon")
+
+# Ordered
+
+fruits_order <- factor(fruits,ordered = TRUE)
+
+
+
+
+levels(fruits_order) <- c("blueberry","strawberry","apple","pineapple","watermelon")
+
+fruits_order
+
+unclass(fruits_order) #removes the "class" attribute from an object.
+
+as.numeric(fruits_order)
+```
+
+
+4. *lists* are a general form of vector in which the various elements need not be of the same type, and are often themselves vectors or lists.
+
+
+```{r}
+Lst <- list(student="Joe", subject="Math", no.exam=3, scores=c(85,89,93))
+
+Lst[[2]]
+Lst$subject
+Lst[["subject"]]
+
+Lst[[4]][1]
+Lst$scores[1]
+Lst[["scores"]][1]
+
+```
+
+
+5. *data frames* are matrix-like structures (2 dimension), in which the columns can be of different types. 
+
+A data frame may for many purposes be regarded as a matrix with columns possibly of differing modes and attributes. It may be displayed in matrix form, and its rows and columns extracted using matrix indexing conventions
+
+```{r}
+fruits <- data.frame(names=c("blueberry","apple","pineapple"),
+                     color=c("blue","red","pineapple"),
+                     weigh_lb=c(0.05,0.5,5))
+```
+
+
+5. *functions* are themselves objects in R which can be stored in the project’s workspace. This provides a simple and convenient way to extend R. 
+
+All objects in R have a class, reported by the function class. For simple vectors this is just the mode, for example "numeric", "logical", "character" or "list", but "matrix", "array", "factor" and "data.frame" are other possible values
+
+
+### Proporties of object
+
+
+```{r}
+
+
+mode(z) # the type of atomic component
+
+length(z) # how many of the basic component
+
+
+attr(z, "dim") <- c(10,10)
+
+attributes(z)
+
+```
+
+### Demo for object 
+
+```{r}
+x <- rnorm(100) 
+y <- rnorm(x)
+
+plot(x, y)
+
+ls() # list all the objects lives in the environment.
+rm(x, y) # delete objects from environment.
+```
+
+
+
+```{r}
+x <- 1:20
+w <- 1 + sqrt(x)/2
+dummy <- data.frame(x=x, y= x + rnorm(x)*w)
+dummy
+fm <- lm(y ~ x, data=dummy) 
+summary(fm)
+
+fm1 <- lm(y ~ x, data=dummy, weight=1/w^2)
+summary(fm1)
+attach(dummy) #Make the columns in the data frame visible as variables.
+
+lrf <- lowess(x, y)
+plot(x, y)
+lines(x, lrf$y)
+abline(0, 1, lty=3)
+abline(coef(fm))
+abline(coef(fm1), col = "red")
+detach() #Remove data frame from the search path.
+
+# Residuals vs. fitted plot
+
+plot(fitted(fm), 
+     resid(fm), 
+     xlab="Fitted values", 
+     ylab="Residuals", 
+     main="Residuals vs Fitted")
+
+# QQ plot for residuals
+
+qqnorm(resid(fm), main="Residuals Rankit Plot")
+qqline(resid(fm))
+rm(fm, fm1, lrf, x, dummy)
+
+```
+
+
+## Data types
+
+### numeric
+
+```{r}
+a<-2
+b <- a
+class(a)
+
+# numeric vector
+vec1<-c(1,2,3,4,5,6)
+vec2<-c(1,2)
+
+class(vec1)
+
+vec1 + vec1 
+
+vec1 / vec2  # notice that shorter vector will be recycled for operation.
+
+sqrt(vec2)
+
+n <- 10
+1:n-1
+1:(n-1) # notice the mathematical operation order, () take precedence.
+
+# useful way to generate sequence. pretty useful to create index sequence in for loop, or plot ticks labels.
+
+seq(1,30)
+seq(from=1, to=30)
+seq(to=30, from=1)
+
+```
+There are some common mathematical operator we can apply to numeric, such as  +, -, *, / and ^ . Also some of functions carry mathematical operation, such as log, exp, sin, cos, tan, sqrt.
+
+### Character string
+
+```{r}
+?Quotes
+
+char1 <- "Epi"  
+
+class(char1)
+
+char2 <- 'Epi'
+
+char3 <- '"Epi"'
+
+
+```
+
+### logical
+
+```{r}
+logical1 <- TRUE
+logical2 <- FALSE
+
+class(logical2)
+
+logical1+logical2
+
+
+# A logical vector.
+
+logical2 <- c(TRUE, TRUE,FALSE)
+
+#as.something to help you manipulate types.
+
+as.numeric(logical1) #coerced into numeric vectors, FALSE becoming 0 and TRUE becoming 1.
+
+
+as.character(logical1)
+```
+There are also data type as integer, complex and raw, which are not very commonly used. Be careful about as.something, it might have unexpected result.
+
+
+### Missing data
+
+In general any operation on an NA becomes an NA, x == NA is quite different from is.na(x).
+Not a Number, NaN, like denomitor is 0. In summary, is.na(xx) is TRUE both for NA and NaN values. To differentiate these, is.nan(xx) is only TRUE for NaNs.
+
+```{r}
+z <- c(1:3,NA); ind <- is.na(z)
+
+z == NA
+```
+
+
+## Indexing(subsetting)
+
+
+```{r}
+x <- c(rnorm(10))
+
+# by index number
+x[1:3] # A vector of positive integral quantities select by position
+x[-3]  # A vector of negative integral quantities deselect by position
+
+# by conditional
+y <- x[!is.na(x)&x>0] 
+
+# by name
+fruit <- c(5, 10, 1, 20) 
+names(fruit) <- c("orange", "banana", "apple", "peach") 
+lunch <- fruit[c("apple","orange")]
+
+#index help you to manipulate vector such as
+
+x[2] <- 44 # replace an element.
+x[11] <- 100 # extend vector. 
+
+
+
+```
+
+Some conditional ooperator  <, <=, >, >=, == for exact equality and != for inequality
+c1 & c2 is their intersection (“and”), c1 | c2 is their union (“or”), and !c1 is the negation of c1.
+
+## Distribution
+
+Prefix the name given here by ‘d’ for the density, ‘p’ for the CDF, ‘q’ for the quantile function and ‘r’ for simulation (r andom deviates)
+
+```{r}
+2*pt(-2.43, df = 13)
+qf(0.01, 2, 7, lower.tail = FALSE)
+```
+
+
+
+# IDA: Descriptive data analysis
+
+## Import data
+
+There are a few ways to import/load dataset into your workspace.
+
+1. load dataset from your local directory.
+2. load dataset from online depository.
+3. load dataset from package.
+4. connect to database and get data
+
+
+```{r}
+# 1. load dataset from your local directory.
+# Depends on the data format, you might need different function from different package to load data. Common package readxl for xls and xlsx files. Package data.table for big data.
+
+library(readr)
+library(tidyverse)
+
+dat_abm <- read_csv("abm_short.csv", col_types = cols(casenum = col_character(), 
+    year = col_character(), month = col_character(), 
+    abm = col_character()))   # Because we created new project, we can use relative filepath.
+
+# Click menu file> import data can conviently help you load data.
+
+
+# 2. load dataset from online depository.
+
+# depends on the online data format, typically you will put the url into the function for that format.
+
+
+# 3. load dataset from package.
+# remotes::install_github("higgi13425/medicaldata")
+
+
+data(abm, package="medicaldata") #getting abm data from medicaldata package
+
+dat_abm <- abm
+
+
+
+
+# 4. connect to database and get data
+#Use package to build connect and then SQL to get data.
+
+
+# Sometimes we want to save the clean data for analysis.
+
+# Save data as an object to a file
+saveRDS(dat_abm, file = "dat_abm.rds")
+# Read the rds data.
+dat_abm <- readRDS(file = "dat_abm.rds")
+
+# View(dat_abm) #view dataset in a seperate table.
+
+# ??abm
+
+```
+
+## Data structure
+
+```{r}
+
+# dimension
+dim(dat_abm)
+
+# detail structures.
+str(dat_abm)
+
+# variable names
+colnames(dat_abm)
+
+#change column names
+colnames(dat_abm)[1] <- "num"
+
+# print out the dataset can know a lot of info.
+dat_abm
+```
+
+
+## 5 big verses from tidyverse
+
+```{r}
+library(tidyverse)
+
+
+dat_vet <- tibble(
+  animal_id = 1:6,
+  species = c("Canine", "Feline", "Canine", "Equine", "Feline", "Canine"),
+  weight_kg = c(25, 4, 32, 500, 5, 28),
+  white_cell_count = c(10.5, 8.2, NA, 7.1, 9.4, 11.2),
+  clinic_region = c("North", "South", "North", "West", "South", "North")
+)
+
+#1. filter(): Selecting Rows
+
+dat_vet |>  
+  filter(species == "Canine", weight_kg > 25)
+
+
+#2. select(): Choosing Columns
+dat_vet |>  
+  select(animal_id, white_cell_count)
+
+
+#3. mutate(): Creating New Variables
+dat_vet |> 
+  mutate(weight_lb = weight_kg * 2.204,
+         is_high_count = white_cell_count > 10)
+
+
+#4. summarise(): Collapsing Data to a Value
+
+dat_vet %>% 
+  summarise(med_weight = median(weight_kg, na.rm = TRUE),
+            total_n = n())
+
+#5. arrange(): Ordering Data
+dat_vet |>  
+  arrange(desc(weight_kg))
+
+
+```
+
+
+
+## Missing data
+
+```{r}
+# some base funtions
+
+is.na(dat_abm) # return TRUE for na
+
+sum(is.na(dat_abm)) # remeber TRUE forced into 1, so we can get sum.
+
+#which(is.na(dat_abm)) #this is usually as condition to subset data.
+
+dat_abm[which(is.na(dat_abm$race)),] #shows which rows has race having missing data.
+
+# It is often useful to know how much is missing for each variable.
+
+sum(is.na(dat_abm$race))/length(dat_abm$race)  
+
+# It is fine we only have a few variables. If we have many variable, calculate this way sounds tedious.
+
+
+# 1. apply function way
+
+colSums(is.na(dat_abm))/nrow(dat_abm) # little better
+# colMeans(is.na(dat_abm))
+# apply(dat_abm, 2,function(x) sum(is.na(x))/length(x))  #basically a apply() function to loop over each variable
+
+# library(tidyverse)
+
+# 2. tidyverse way
+
+dat_abm |> 
+  summarise(across(everything(), ~ mean(is.na(.))))
+
+
+```
+
+
+
+## Univariate descriptive stats (Distribution)
+
+### Continous variable
+
+#### Central tendency
+
+```{r}
+# Mean
+
+mean(dat_abm$age, na.rm=TRUE)  # note that a lot of function return unexpected results if you not pay attention to na.
+
+# not fun to do one variable by one variable.
+
+# 1. apply function way
+
+colMeans(dat_abm[sapply(dat_abm,is.numeric)], na.rm=TRUE) # little better
+
+#apply(dat_abm[sapply(dat_abm,is.numeric)], 2,mean,na.rm=TRUE)
+
+# 2. tidyverse way
+
+dat_abm |> 
+  summarise(across(where(is.numeric), ~ mean(.x, na.rm = TRUE)))
+
+
+# Median
+
+# 1. apply function way
+# no colMedians in base. There are packages however we will apply.
+apply(dat_abm[sapply(dat_abm,is.numeric)], 2,median,na.rm=TRUE)
+apply(dat_abm[sapply(dat_abm,is.numeric)], 2,quantile,probs=0.5,na.rm=TRUE)
+
+
+# 2. tidyverse way
+
+dat_abm |> 
+  select(!where(haven::is.labelled)) |>
+  summarise(across(where(is.numeric), ~ median(.x, na.rm = TRUE)))
+
+# 1st quartile, 3rd quartile
+
+# 1. apply function way
+apply(dat_abm[sapply(dat_abm,is.numeric)], 2,quantile,probs=c(0.25,0.75),na.rm=TRUE)
+
+# 2. tidyverse way
+
+dat_abm |> 
+  select(!where(haven::is.labelled)) |>
+  summarise(across(where(is.numeric), ~ quantile(.x, probs=c(0.25,0.75),na.rm = TRUE)))
+
+# dat_abm %>%
+#   summarise(across(where(is.numeric), list(first_quartile= ~ quantile(.x, probs=0.25,na.rm = TRUE),third_quartile= ~ quantile(.x, probs=0.75,na.rm = TRUE))))  # need manipulation to get into the desired form.
+
+# minimum
+
+dat_abm |> 
+  select(!where(haven::is.labelled)) |>
+  summarise(across(where(is.numeric), ~ min(.x,na.rm = TRUE)))
+
+#maximum
+
+
+dat_abm |> 
+  select(!where(haven::is.labelled)) |>
+  summarise(across(where(is.numeric), ~ max(.x,na.rm = TRUE)))
+
+
+```
+
+#### Dispersion 
+
+```{r}
+
+# standard deviation or variance
+# this is the sample sd and variance, denominator is n-1
+dat_abm |> 
+  select(!where(haven::is.labelled)) |>
+  summarise(across(where(is.numeric), ~ sd(.x, na.rm = TRUE)))
+
+# dat_abm %>%
+#   summarise(across(where(is.numeric), ~ var(.x, na.rm = TRUE)))
+
+
+# range  same information of min and max
+dat_abm |>
+  select(!where(haven::is.labelled)) |>
+  summarise(across(where(is.numeric), ~ range(.x, na.rm = TRUE)))
+
+
+# IQR
+
+dat_abm |> 
+  select(!where(haven::is.labelled)) |>
+  summarise(across(where(is.numeric), ~ IQR(.x, na.rm = TRUE)))
+
+# coefficient of variation
+
+
+dat_abm |> 
+  select(!where(haven::is.labelled)) |>
+  summarise(across(where(is.numeric), ~ (sd(.x, na.rm = TRUE))/(mean(.x, na.rm = TRUE))))
+
+
+```
+
+
+#### visualization
+
+```{r}
+library(ggplot2)
+
+# histogram
+
+## base function
+hist(dat_abm$blood_wbc, breaks =c(seq(0, 80, 2)), prob=TRUE)
+lines(density(dat_abm$blood_wbc, bw=2,na.rm=T))
+rug(dat_abm$blood_wbc)
+
+
+# ggplot way
+# ggplot is a great visualization tool R is famous for. Itself worth a course/tutorial. please learn as we needed.
+
+ggplot(dat_abm, aes(x=blood_wbc)) + 
+  geom_histogram(breaks =c(seq(0, 80, 2)))+
+  # scale_x_log10()+
+  xlab("WBC")+
+  ylab("count")+
+  ggtitle("Histogram for WBC variable at Bin size = 3")+
+  theme_minimal()
+
+  
+
+```
+
+
+### Categorical variable
+
+#### Frequency and proportion
+
+```{r}
+
+# frequency or proportion for each category for each variable.
+
+# because each variable has different categories we need to summarize one by one
+dat_abm |>  
+  select_if(is.character) 
+
+table(dat_abm$race)
+prop.table(table(dat_abm$race))
+
+# Tidy verse way
+
+dat_abm |> 
+  group_by(race) |> 
+  summarise(number=n())
+
+dat_abm |> 
+  group_by(race) %>%  
+  summarise(number=n(), proportion=number/nrow(dat_abm))
+
+
+```
+### Visualization
+
+```{r}
+#barplot
+
+ggplot(dat_abm, aes(x=as.factor(race), fill=as.factor(race))) +  
+  geom_bar( )
+```
+
+### Super easy way to do univariate descriptive analysis.
+
+```{r}
+library(Hmisc)
+
+
+
+d <- dat_abm  |>  
+  select(!where(haven::is.labelled)) |>
+ Hmisc::describe()
+
+Hmisc::html(d)
+```
+
+
+
+## Multivariate descriptive stats (Distribution)
+
+Choose a variable as structural variable. They are usaully some categorical variable help us to stratify.
+
+### Continous variable
+
+#### Central tendency
+
+```{r}
+
+# We can stratify by race
+
+dat_abm |> 
+  group_by(race) |>  
+  summarise(across(where(is.numeric), ~ mean(.x, na.rm = TRUE)))
+
+
+```
+
+#### Dispersion 
+
+```{r}
+
+# again stratify by race
+dat_abm |> 
+  group_by(race) |> 
+  summarise(across(where(is.numeric), ~ sd(.x, na.rm = TRUE)))
+```
+
+
+#### visualization
+
+```{r}
+# Since structural variable is categorical, we can do boxplot, or something similar like violin plot
+
+dat_clean <- dat_abm |> 
+  haven::zap_labels()
+
+
+
+# boxplot
+dat_clean |> 
+  ggplot( aes(x=race, y=blood_wbc, fill=race)) + # I add not delete NA normally won't include
+    geom_boxplot()+
+    geom_jitter(color="black", size=0.4, alpha=0.9) + # adding datapoints.
+    ggtitle("A boxplot for WBC by race")
+
+# ciolin
+dat_clean |> 
+  ggplot( aes(x=race, y=blood_wbc, fill=race)) + # I add not delete NA normally won't include
+    geom_violin()+
+    geom_jitter(color="black", size=0.4, alpha=0.9) + # adding datapoints.
+    ggtitle("A boxplot for WBC by race")
+
+```
+
+
+### Categorical variable
+
+#### Frequency and proportion
+
+```{r}
+
+# Stratify categorical variables will involve crosstable.
+
+## 2 by 2 contigency table
+
+table(dat_abm$race,dat_abm$sex)
+
+# cell proportion
+prop.table(table(dat_abm$race,dat_abm$sex))
+
+# margin proportion
+prop.table(table(dat_abm$race,dat_abm$sex),margin = 1) #margin = 1 specify row wise sum to 1
+prop.table(table(dat_abm$race,dat_abm$sex),margin = 2) #margin = 2 specify column wise sum to 1
+
+
+```
+#### Visualization
+
+```{r}
+# remotes::install_github("haleyjeppson/ggmosaic")
+library(ggmosaic)
+
+dat_clean |> 
+  mutate(race=as.factor(race),sex=as.factor(sex)) |> 
+  filter(!is.na(race),!is.na(sex)) |>  ggplot() + 
+  geom_mosaic(aes(x=product(race, sex), fill = race))
+
+
+#base R
+mosaicplot(table(dat_clean$race, dat_clean$abm))
+
+
+```
+
+### Super easy way to do multivariate descriptive analysis (table).
+
+```{r}
+s <-  Hmisc::summaryM(blood_gluc+blood_neut_pct+blood_wbc+age~ abm, data=dat_abm, overall=TRUE, test = TRUE )
+
+
+
+Hmisc::html(
+  s,
+  caption = 'Multivariate descriptive analysis by case/control',
+  exclude1 = TRUE,
+  npct = 'both',
+  digits = 3,
+  pctdig =3,
+  prmsd = TRUE,
+  brmsd = TRUE,
+  #msdsize = mu$smaller2
+)
+```
+
+
+
+## Interrelationship between variable.
+
+### Correlation
+
+```{r}
+# A lot of time we want to check correlation between continuous variable, especially for predictors. 
+
+# In ABM dataset we assume all the continous variables are candidate preditors. Normally, we will decide which ones are candidate variables if too many of them.
+
+# correlation matrix
+
+cor(dat_abm %>% select_if(is.numeric), method = c("spearman"),use= "pairwise.complete.obs")
+
+
+```
+
+
+### Visualiziton
+
+```{r warning=FALSE}
+library(GGally)
+
+# Let's just show a few
+dat_abm |>  
+  select(blood_wbc,csf_prot,blood_gluc) %>% 
+ggpairs( title="correlogram with ggpairs()") 
+
+```
+
+
+## A lot of more to explore!!!
+
+
+

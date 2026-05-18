@@ -32,7 +32,7 @@ Install steps:
 
 ## Lessons
 
-1. [Introduction to R and RStudio](../lessons/01_R-and-RStudio.qmd)
+1. [Introduction to R and RStudio](../lessons/Intro-to-R.qmd)
 
 
 ## Cheatsheets

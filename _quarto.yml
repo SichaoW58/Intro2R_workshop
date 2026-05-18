@@ -10,6 +10,7 @@ project:
 
 website:
   title: "Introduction to R for Researchers"
+  site-url: https://cstat-msu.github.io/Intro-to-R-4-Researchers/
   google-analytics: G-68JBPLLNLG
   page-footer: >
       This workshop has been developed by members of CSTAT at Michigan State University [CSTAT](https://cstat.msu.edu/)
