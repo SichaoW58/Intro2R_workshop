@@ -1,0 +1,29 @@
+---
+title: "Schedule"
+sidebar: false
+toc: false
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+# Workshop Schedule
+
+## 3-hours 
+
+| Time | Topic | Instructor |
+|:-----------------:|:------------------------------------:|:-------------:|
+| 12:00 - 12:45 | [Workshop Introduction](../slides/workshop_intro_slides.pdf) | Sichao |
+| 12:45 - 2:45 | [Hands-on R and RStudio](../lessons/01_R-and-RStudio.qmd) | Sichao |
+| 2:45 - 3:00 | Questions and Wrap-up | Sichao |
+
+
+## Resources
+
+-   [Materials]()
+
+## Cheatsheets
+
+-   [base R cheatsheet](../lessons/cheatsheets/base-r.pdf)
+-   [RStudio cheatsheet](../lessons/cheatsheets/rstudio-ide.pdf)
+-   [ggplot2 cheatsheet](../lessons/cheatsheets/data-visualization-2.1.pdf)

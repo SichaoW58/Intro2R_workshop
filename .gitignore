@@ -1,0 +1,8 @@
+/.quarto/
+lessons/data
+docs/data
+*.RDS
+*.RData
+*.rds
+.Rhistory
+.DS_Store
