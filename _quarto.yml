@@ -17,7 +17,7 @@ website:
   site-url: https://sichaow58.github.io/Intro2R_workshop/
   google-analytics: G-68JBPLLNLG
   page-footer: >
-      This workshop has been developed by members of CSTAT at Michigan State University [CSTAT](https://cstat.msu.edu/)
+      This workshop has been developed by statisticians of CSTAT at Michigan State University [CSTAT](https://cstat.msu.edu/)
   
   
   navbar:
@@ -25,7 +25,7 @@ website:
       - text: "Schedule"
         href: schedule/schedule.qmd
       - text: "Workshop Materials"
-        href: codes/codes.zip
+        href: schedule/links-to-lessons.qmd
     right:
       - text: "CSTAT"
         href: https://cstat.msu.edu/
