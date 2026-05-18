@@ -3,13 +3,13 @@ project:
   output-dir: docs
   render:
     - index.qmd
-    - lessons/*.qmd
     - schedule/*.qmd
   resources:
     - img/
     - css/
     - slides/
     - schedule/
+    - lessons/
 
 
 website:
@@ -24,23 +24,13 @@ website:
     left:
       - text: "Schedule"
         href: schedule/schedule.qmd
+      - text: "Workshop Materials"
+        href: lessons/Intro-to-R.qmd
     right:
       - text: "CSTAT"
         href: https://cstat.msu.edu/
       - text: "GitHub"
         href: https://github.com/SichaoW58/Intro2R_workshop
-
-
-  
-  sidebar:
-    title: "Lessons"      # Optional title above the sidebar
-    style: "docked"       # Sidebar is docked to the left
-    collapse-level: 1     # At what header level to start collapsing
-    # contents: auto      # Creates automatic TOC from page headers (no sections)
-    contents:
-      - section: "Day 1:"
-        contents:
-          - lessons/01_R-and-RStudio.qmd
           
 
 format:
@@ -61,7 +51,7 @@ format:
 # Global Execution Defaults
 execute:
   echo: true               # show code
-  eval: true               # run code
+  eval: false              # keep site build lightweight; lessons are published as materials
   warning: false           # show warnings
   error: false             # show errors
   message: false           # show messages

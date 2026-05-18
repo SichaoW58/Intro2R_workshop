@@ -1,43 +1,26 @@
 ---
 title: "Intro to R for Researchers"
-author: 
-  - name: Sichao Wang
-    degrees: PhD
-    email: wangsic1@msu.edu
-    affiliations: 
-      - name: Michigan State University, Center for Statistical Training and Consulting
-date: "`r format(Sys.time(), '%Y-%m-%d, %H:%M:%S %Z')`"
-title-block-banner: "#01665e"
-format: 
-  html: 
-    toc: true 
-    toc-depth: 4
-    toc-location: left 
-    number-sections: true
-    number-depth: 4
-    code-tools: false 
-    embed-resources: true 
-    theme: default 
-execute: 
-  eval: true 
-  echo: false #fenced
-  output: true 
-  message: false 
-  warning: false 
-  error: false 
-  include: true 
-knitr:
-  opts_chunk:
-    out.width: "150%"
-bibliography: references.bib
-editor:
-  markdown:
-    wrap: sentence
+output: html_document
+date: "2026-05-21"
 ---
 
 # Project title: Intro to R for Researchers
 
-Description: "This is an introduction to R for researchers. It covers the basics of R programming, data manipulation, and data visualization. It also includes some examples of how to use R for data analysis."
+This three-hour workshop is designed to provide new users with a clear path from their first lines of code to practical research applications. We will guide you through the Initial Data Analysis Framework, ensuring you develop a reproducible workflow from day one. Through guided, hands-on practice, we cover the entire process from the first time you open RStudio to producing your first set of visualizations. By the end of the session, you will have the "best-practice" toolkit needed to minimize common frustrations and kick off your own data projects with confidence. 
+
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+### chunk option
+# echo = TRUE shows code, =FALSE only shows result.
+# include = FALSE shows nothing run code.
+# eval= FALSE does not run the code.
+
+## https://yihui.org/knitr/options/ shows different options.
+
+```
 
 
 
@@ -46,7 +29,6 @@ Description: "This is an introduction to R for researchers. It covers the basics
 ## Help functions
 
 ```{r}
-
 help.start()  # web-based r help pages.
 
 help(mean)    # bring up the help for the specific function in the help panel.
@@ -58,8 +40,8 @@ methods(class="data.frame") #showing generic function for data.frame class
 
 methods(plot) #what class generic function takes
 
-getS3method("print", "data.frame") #method used for data frames
-getS3method("print", "lm") #method used for linear model results
+print.data.frame() #handles data frames
+print.lm() #handles linear model results
 
 plot #  UseMethod("plot") means generic
 
@@ -578,7 +560,7 @@ apply(dat_abm[sapply(dat_abm,is.numeric)], 2,quantile,probs=c(0.25,0.75),na.rm=T
 
 dat_abm |> 
   select(!where(haven::is.labelled)) |>
-  reframe(across(where(is.numeric), ~ quantile(.x, probs=c(0.25,0.75),na.rm = TRUE)))
+  summarise(across(where(is.numeric), ~ quantile(.x, probs=c(0.25,0.75),na.rm = TRUE)))
 
 # dat_abm %>%
 #   summarise(across(where(is.numeric), list(first_quartile= ~ quantile(.x, probs=0.25,na.rm = TRUE),third_quartile= ~ quantile(.x, probs=0.75,na.rm = TRUE))))  # need manipulation to get into the desired form.
@@ -616,7 +598,7 @@ dat_abm |>
 # range  same information of min and max
 dat_abm |>
   select(!where(haven::is.labelled)) |>
-  reframe(across(where(is.numeric), ~ range(.x, na.rm = TRUE)))
+  summarise(across(where(is.numeric), ~ range(.x, na.rm = TRUE)))
 
 
 # IQR

@@ -25,6 +25,8 @@ This repository has teaching materials for a hands-on **Introduction to R** work
 ### Lessons
 
 - [Workshop schedule](schedule/schedule.qmd)
+- [Lesson source (Quarto)](lessons/Intro-to-R.qmd)
+- [Lesson source (R Markdown)](lessons/Intro-to-R.Rmd)
 
 
 ### Installation Requirements
@@ -51,6 +53,9 @@ Install steps:
 
 ### Dataset
 
-All the files used for the above workshop are linked within, but can also be [downloaded]().
+All files used for this workshop are available here:
+
+- [ABM CSV data](lessons/abm_short.csv)
+- [ABM RDS data](lessons/dat_abm.rds)
 
 
