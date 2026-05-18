@@ -25,7 +25,7 @@ website:
       - text: "Schedule"
         href: schedule/schedule.qmd
       - text: "Workshop Materials"
-        href: lessons/Intro-to-R.qmd
+        href: lessons/lessons.zip
     right:
       - text: "CSTAT"
         href: https://cstat.msu.edu/
