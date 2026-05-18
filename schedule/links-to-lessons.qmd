@@ -1,3 +1,9 @@
+---
+title: "Codes"
+sidebar: false
+toc: false
+---
+
 # Introduction to R For Researchers
 
 ## Learning Objectives
@@ -32,11 +38,11 @@ Install steps:
 
 ## Materials
 
-1. [Introduction to R](../lessons/lessons.zip)
+1. [Introduction to R](../codes/codes.zip)
 
 
 ## Cheatsheets
 
--   [base R cheatsheet](../lessons/cheatsheets/base-r.pdf)
--   [RStudio cheatsheet](../lessons/cheatsheets/rstudio-ide.pdf)
--   [ggplot2 cheatsheet](../lessons/cheatsheets/data-visualization-2.1.pdf)
+-   [base R cheatsheet](../codes/cheatsheets/base-r.pdf)
+-   [RStudio cheatsheet](../codes/cheatsheets/rstudio-ide.pdf)
+-   [ggplot2 cheatsheet](../codes/cheatsheets/data-visualization-2.1.pdf)

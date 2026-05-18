@@ -1,3 +1,9 @@
+---
+title: "Codes"
+sidebar: false
+toc: false
+---
+
 # Introduction to R For Researchers
 
 ## Learning Objectives
@@ -30,13 +36,13 @@ Install steps:
 3.	Install RStudio as per the instructions.
 
 
-## Lessons
+## Codes
 
-1. [Introduction to R and RStudio](../lessons/Intro-to-R.qmd)
+1. [Introduction to R and RStudio](../codes/Intro-to-R.qmd)
 
 
 ## Cheatsheets
 
--   [base R cheatsheet](../lessons/cheatsheets/base-r.pdf)
--   [RStudio cheatsheet](../lessons/cheatsheets/rstudio-ide.pdf)
--   [ggplot2 cheatsheet](../lessons/cheatsheets/data-visualization-2.1.pdf)
+-   [base R cheatsheet](../codes/cheatsheets/base-r.pdf)
+-   [RStudio cheatsheet](../codes/cheatsheets/rstudio-ide.pdf)
+-   [ggplot2 cheatsheet](../codes/cheatsheets/data-visualization-2.1.pdf)

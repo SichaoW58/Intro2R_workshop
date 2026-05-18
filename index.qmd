@@ -22,11 +22,11 @@ This repository has teaching materials for a hands-on **Introduction to R for Re
 3. **Data manipulation essentials:** Demonstrate the use of functions for wrangling data from various data structures.
 4. **Data visualization (Optional):** Simple visualization using the ggplot2 package.
 
-### Lessons
+### Materials
 
 - [Workshop schedule](schedule/schedule.qmd)
-- [Lesson source (Quarto)](lessons/Intro-to-R.qmd)
-- [Lesson source (R Markdown)](lessons/Intro-to-R.Rmd)
+- [Code source (Quarto)](codes/Intro-to-R.qmd)
+- [Code source (R Markdown)](codes/Intro-to-R.Rmd)
 
 
 ### Installation Requirements
@@ -55,7 +55,7 @@ RStudio is the most popular integrated development environment (IDE) for R. It m
 
 All files used for this workshop are available here:
 
-- [ABM CSV data](lessons/abm_short.csv)
-- [ABM RDS data](lessons/dat_abm.rds)
+- [ABM CSV data](codes/abm_short.csv)
+- [ABM RDS data](codes/dat_abm.rds)
 
 

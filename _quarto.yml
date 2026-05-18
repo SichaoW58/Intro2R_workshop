@@ -9,7 +9,7 @@ project:
     - css/
     - slides/
     - schedule/
-    - lessons/
+    - codes/
 
 
 website:
@@ -25,7 +25,7 @@ website:
       - text: "Schedule"
         href: schedule/schedule.qmd
       - text: "Workshop Materials"
-        href: lessons/lessons.zip
+        href: codes/codes.zip
     right:
       - text: "CSTAT"
         href: https://cstat.msu.edu/
@@ -51,7 +51,7 @@ format:
 # Global Execution Defaults
 execute:
   echo: true               # show code
-  eval: false              # keep site build lightweight; lessons are published as materials
+  eval: false              # keep site build lightweight; codes are published as materials
   warning: false           # show warnings
   error: false             # show errors
   message: false           # show messages
