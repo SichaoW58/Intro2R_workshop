@@ -11,9 +11,9 @@ toc: false
 
 ### Description
 
-This repository has teaching materials for a hands-on **Introduction to R** workshop. The workshop will introduce participants to the basics of R and RStudio. R is a simple programming environment that enables the effective handling of data, while providing excellent graphical support. RStudio is a tool that provides a user-friendly environment for working with R. These materials are intended to provide both basic R programming knowledge and its application for increasing efficiency for data analysis.
+This repository has teaching materials for a hands-on **Introduction to R for Researchers** workshop. The workshop will introduce participants to the basics of R and RStudio. R is a simple programming environment that enables the effective handling of data, while providing excellent graphical support. RStudio is a tool that provides a user-friendly environment for working with R. These materials are intended to provide both basic R programming knowledge and its application for increasing efficiency for data analysis.
 
-**Note for Trainers:** Please note that the schedule linked below assumes that learners will spend between 2-3 hours on reading through, and completing exercises from selected lessons between classes.
+**Note for participants:** No prior experience with R is required for this workshop. We will walk through the hands-on exercises together, and you will have the opportunity to ask questions and get help along the way.
 
 ### Learning Objectives
 
@@ -44,9 +44,9 @@ It is straightforward installing R on your machine. Follow these steps:
 
 
 ### Installing RStudio
-RStudio is the most popular integrated development environment (IDE) for R. It makes working with R easier, more productive, and organized, especially for new users.
+RStudio is the most popular integrated development environment (IDE) for R. It makes working with R easier, more productive, and organized, especially for new users. Follow these steps:
 
-Install steps:
+
 1.	Go to the RStudio download website [(Posit)](https://posit.co/download/rstudio-desktop/).
 2.	Choose the ‘Installers for your system’ to download
 3.	Install RStudio as per the instructions.

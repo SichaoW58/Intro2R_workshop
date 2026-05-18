@@ -44,10 +44,10 @@ footer.footer .nav-footer-right {
 }
 
 
-/* Harvard Crimson: #A51C30 */
+/* Michigan State University green: #18453B */
 /* For Quarto Bootstrap dark navbars: */
 .navbar, .navbar-dark {
-  background-color: #a51c30 !important;
+  background-color: #18453b !important;
 }
 
 /* For navbar items and hover/focus states */
