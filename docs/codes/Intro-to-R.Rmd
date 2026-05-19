@@ -6,10 +6,8 @@ date: "2026-05-21"
 
 # Project title: Intro to R for Researchers
 
-This three-hour workshop is designed to provide new users with a clear path from their first lines of code to practical research applications. We will guide you through the Initial Data Analysis Framework, ensuring you develop a reproducible workflow from day one. Through guided, hands-on practice, we cover the entire process from the first time you open RStudio to producing your first set of visualizations. By the end of the session, you will have the "best-practice" toolkit needed to minimize common frustrations and kick off your own data projects with confidence. 
 
-
-
+Rmarkdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. You can use R Markdown to easily create reproducible data analysis reports, presentations, and dashboards.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -17,7 +15,6 @@ knitr::opts_chunk$set(echo = TRUE)
 # echo = TRUE shows code, =FALSE only shows result.
 # include = FALSE shows nothing run code.
 # eval= FALSE does not run the code.
-
 ## https://yihui.org/knitr/options/ shows different options.
 
 ```
@@ -42,6 +39,24 @@ methods(plot) #what class generic function takes
 
 print.data.frame() #handles data frames
 print.lm() #handles linear model results
+
+plot #  UseMethod("plot") means generic
+
+getAnywhere("plot.acf")
+
+version #check current R versionhelp.start()  # web-based r help pages.
+
+help(mean)    # bring up the help for the specific function in the help panel.
+
+?mean         # alternative way of help(mean)
+
+
+methods(class="data.frame") #showing generic function for data.frame class
+
+methods(plot) #what class generic function takes
+
+getS3method("print", "data.frame") #method used for data frames
+getS3method("print", "lm") #method used for linear model results
 
 plot #  UseMethod("plot") means generic
 
@@ -98,7 +113,12 @@ order or unorder
 fruits <- c("blueberry","strawberry","apple","pineapple","watermelon")
 fruits_f <- factor(fruits)
 
+
+# notice that the default order of levels is alphabetic, which might not be what we want. 
 levels(fruits_f)
+
+
+# We can change the order of levels by assign new levels to the factor object.
 
 levels(fruits_f) <- c("blueberry","strawberry","apple","pineapple","watermelon")
 
@@ -113,8 +133,12 @@ levels(fruits_order) <- c("blueberry","strawberry","apple","pineapple","watermel
 
 fruits_order
 
-unclass(fruits_order) #removes the "class" attribute from an object.
+#removes the "class" attribute from an object. It reveals the underlying code of ordered factor, which is an integer vector with attributes of levels and class.
 
+unclass(fruits_order) 
+
+
+# convert ordered factored into numeric vector.
 as.numeric(fruits_order)
 ```
 
@@ -123,16 +147,22 @@ as.numeric(fruits_order)
 
 
 ```{r}
-Lst <- list(student="Joe", subject="Math", no.exam=3, scores=c(85,89,93))
+# Put different types of objects into a list. A list can contain any type of object, including other lists. It is a very flexible data structure in R.
+list0 <- list(student="Joe", subject="Math", no.exam=3, scores=c(85,89,93))
 
-Lst[[2]]
-Lst$subject
-Lst[["subject"]]
 
-Lst[[4]][1]
-Lst$scores[1]
-Lst[["scores"]][1]
+# indexing a list is different from indexing a vector. For a list, single square brackets [ ] will return a sublist, while double square brackets [[ ]] will return the actual element.
 
+
+list0[[2]]
+
+
+list0$subject
+list0[["subject"]]
+
+list0[[4]][1]
+list0$scores[1]
+list0[["scores"]][1]
 ```
 
 
@@ -150,7 +180,6 @@ fruits <- data.frame(names=c("blueberry","apple","pineapple"),
 5. *functions* are themselves objects in R which can be stored in the project’s workspace. This provides a simple and convenient way to extend R. 
 
 All objects in R have a class, reported by the function class. For simple vectors this is just the mode, for example "numeric", "logical", "character" or "list", but "matrix", "array", "factor" and "data.frame" are other possible values
-
 
 ### Proporties of object
 
@@ -173,28 +202,34 @@ attributes(z)
 
 ```{r}
 x <- rnorm(100) 
+
+# Then use x as input for generate another numeric vector named y, which is also a random normal vector with mean of x.
+
+
 y <- rnorm(x)
 
 plot(x, y)
 
-ls() # list all the objects lives in the environment.
+# ls() # list all the objects lives in the environment.
 rm(x, y) # delete objects from environment.
 ```
 
 
 
 ```{r}
-x <- 1:20
+x <- 1:20 # create a numeric vector of 20 integers from 1 to 20.
 w <- 1 + sqrt(x)/2
 dummy <- data.frame(x=x, y= x + rnorm(x)*w)
 dummy
-fm <- lm(y ~ x, data=dummy) 
+fm <- lm(y ~ x, data=dummy) # fit a linear regression model with y as outcome and x as predictor, and save the fitted model as fm.
 summary(fm)
 
-fm1 <- lm(y ~ x, data=dummy, weight=1/w^2)
+fm1 <- lm(y ~ x, data=dummy, weight=1/w^2) # fit a weighted linear regression model with y as outcome and x as predictor, and save the fitted model as fm1.
 summary(fm1)
 attach(dummy) #Make the columns in the data frame visible as variables.
 
+
+# scatter plot with lowess curve and regression line.
 lrf <- lowess(x, y)
 plot(x, y)
 lines(x, lrf$y)
@@ -229,12 +264,14 @@ a<-2
 b <- a
 class(a)
 
-# numeric vector
-vec1<-c(1,2,3,4,5,6)
-vec2<-c(1,2)
+# integer vector
+vec1<-c(1L,2L,3L,4L,5L,6L)
+
+vec2<-c(1L,2L)
 
 class(vec1)
 
+# recyling rule: when two vectors have different length, the shorter one will be recycled to match the length of the longer one. If the length of the longer vector is not a multiple of the shorter one, a warning will be issued.
 vec1 + vec1 
 
 vec1 / vec2  # notice that shorter vector will be recycled for operation.
@@ -259,14 +296,18 @@ There are some common mathematical operator we can apply to numeric, such as  +,
 ```{r}
 ?Quotes
 
-char1 <- "Epi"  
+# use can use double quotes or single quotes to create character string. If you want to use the quote itself, you can use the other type of quote to create the string, or you can use escape character \ to escape the quote.
+greet <- "hello world"  
 
-class(char1)
+class(greet)
 
-char2 <- 'Epi'
+greet2 <- 'hello world'
 
-char3 <- '"Epi"'
+greet3 <- '"hello world"'
 
+greet4 <- "hello \"world\""
+
+difference of greet3 <- '"hello world"' and greet4 <- "hello \"world\""
 
 ```
 
@@ -278,6 +319,7 @@ logical2 <- FALSE
 
 class(logical2)
 
+# stored as numeric vector with 0 for FALSE and 1 for TRUE, so we can do mathematical operation on logical vector. This is often used in data manipulation, such as subsetting data by condition, or calculating the proportion of missing data.
 logical1+logical2
 
 
@@ -297,13 +339,12 @@ There are also data type as integer, complex and raw, which are not very commonl
 
 ### Missing data
 
-In general any operation on an NA becomes an NA, x == NA is quite different from is.na(x).
-Not a Number, NaN, like denomitor is 0. In summary, is.na(xx) is TRUE both for NA and NaN values. To differentiate these, is.nan(xx) is only TRUE for NaNs.
+In general, any mathematical or logical operation involving an `NA` results in an `NA`. For this reason, checking for missing values with `x == NA` will not work; you must use `is.na(x)` instead. R also uses `NaN` (Not a Number) for undefined mathematical operations, such as dividing by zero. Note that `is.na(x)` returns `TRUE` for both `NA` and `NaN` values. To specifically identify `NaN` values, use `is.nan(x)`.
 
 ```{r}
 z <- c(1:3,NA); ind <- is.na(z)
 
-z == NA
+z == NA #NA basically an unknown value, so we cannot know if it is equal to NA or not. So it returns NA.
 ```
 
 
@@ -311,13 +352,13 @@ z == NA
 
 
 ```{r}
-x <- c(rnorm(10))
+x <- rnorm(10)
 
 # by index number
 x[1:3] # A vector of positive integral quantities select by position
 x[-3]  # A vector of negative integral quantities deselect by position
 
-# by conditional
+# by conditional, combine logical operator and indexing to subset data by condition. This is very useful for data manipulation, such as subsetting data by condition, or calculating the proportion of missing data. ! is negate operator.
 y <- x[!is.na(x)&x>0] 
 
 # by name
@@ -330,8 +371,6 @@ lunch <- fruit[c("apple","orange")]
 x[2] <- 44 # replace an element.
 x[11] <- 100 # extend vector. 
 
-
-
 ```
 
 Some conditional ooperator  <, <=, >, >=, == for exact equality and != for inequality
@@ -339,11 +378,11 @@ c1 & c2 is their intersection (“and”), c1 | c2 is their union (“or”), an
 
 ## Distribution
 
-Prefix the name given here by ‘d’ for the density, ‘p’ for the CDF, ‘q’ for the quantile function and ‘r’ for simulation (r andom deviates)
+In R, distribution functions use a standard naming convention. Prefix the base name of the distribution with **'d'** for the density, **'p'** for the cumulative distribution function (CDF), **'q'** for the quantile function, and **'r'** for simulation (random deviates).
 
 ```{r}
-2*pt(-2.43, df = 13)
-qf(0.01, 2, 7, lower.tail = FALSE)
+2*pt(-2.43, df = 13) # gives the two-tailed p-value for a t-test with 13 degrees of freedom and a t-statistic of -2.43.
+qf(0.01, 2, 7, lower.tail = FALSE) # gives the critical value of the F-distribution with 2 and 7 degrees of freedom at the 1% significance level (upper tail).
 ```
 
 
@@ -379,7 +418,7 @@ dat_abm <- read_csv("abm_short.csv", col_types = cols(casenum = col_character(),
 # depends on the online data format, typically you will put the url into the function for that format.
 
 
-# 3. load dataset from package.
+# 3. load dataset from package. install the package from github.
 # remotes::install_github("higgi13425/medicaldata")
 
 
@@ -405,6 +444,7 @@ dat_abm <- readRDS(file = "dat_abm.rds")
 
 # ??abm
 
+# abm data is from medicaldata package, which is a simulated dataset of 1000 patients with acute bacterial meningitis (ABM). It contains 20 variables, including demographic information, clinical features, laboratory results, and outcomes.
 ```
 
 ## Data structure
@@ -421,7 +461,7 @@ str(dat_abm)
 colnames(dat_abm)
 
 #change column names
-colnames(dat_abm)[1] <- "num"
+colnames(dat_abm)[1] <- "id"
 
 # print out the dataset can know a lot of info.
 dat_abm
@@ -431,8 +471,13 @@ dat_abm
 ## 5 big verses from tidyverse
 
 ```{r}
-library(tidyverse)
+#install.packages("tidyverse") #1st time require installing the package.
 
+
+library(tidyverse) # typically we load all the required package at the beginning of the script, so we do not need to load them one by one later when we need them. Here just for demonstration, we will load tidyverse here.
+
+
+# tibble is a modern reimagining of the data frame, providing a more user-friendly and efficient way to handle tabular data in R. It is part of the tidyverse collection of packages and offers several advantages over traditional data frames, such as better printing, enhanced subsetting, and improved handling of missing values. And won't change character into factor by default, which is a common source of confusion for new R users.
 
 dat_vet <- tibble(
   animal_id = 1:6,
@@ -442,33 +487,39 @@ dat_vet <- tibble(
   clinic_region = c("North", "South", "North", "West", "South", "North")
 )
 
-#1. filter(): Selecting Rows
+#1. filter(): Selecting Rows based on Conditions
 
 dat_vet |>  
   filter(species == "Canine", weight_kg > 25)
 
 
-#2. select(): Choosing Columns
+#2. select(): Choosing Columns by names. you  can use helper function to select columns by pattern, such as starts_with(), ends_with(), contains() and matches().
+
 dat_vet |>  
   select(animal_id, white_cell_count)
 
 
-#3. mutate(): Creating New Variables
+#3. mutate(): Creating New Variables/columns by transforming existing ones
 dat_vet |> 
   mutate(weight_lb = weight_kg * 2.204,
          is_high_count = white_cell_count > 10)
 
 
-#4. summarise(): Collapsing Data to a Value
+#4. summarise(): Collapsing Data to a Value, usally used with group_by() to get summary statistics by group.
 
-dat_vet %>% 
+dat_vet  |>  
   summarise(med_weight = median(weight_kg, na.rm = TRUE),
             total_n = n())
 
-#5. arrange(): Ordering Data
+dat_vet  |>  
+  group_by(species) |>
+  summarise(med_weight = median(weight_kg, na.rm = TRUE),
+            total_n = n())
+
+
+#5. arrange(): Ordering Data acording to values of a variable, default is ascending order, use desc() for descending order.
 dat_vet |>  
   arrange(desc(weight_kg))
-
 
 ```
 
@@ -479,9 +530,9 @@ dat_vet |>
 ```{r}
 # some base funtions
 
-is.na(dat_abm) # return TRUE for na
+is.na(dat_abm) # return TRUE for na position.
 
-sum(is.na(dat_abm)) # remeber TRUE forced into 1, so we can get sum.
+sum(is.na(dat_abm)) # TRUE is treated as 1 and FALSE is treated as 0, so sum(is.na(dat_abm)) gives the total number of missing values in the dataset.
 
 #which(is.na(dat_abm)) #this is usually as condition to subset data.
 
@@ -497,16 +548,16 @@ sum(is.na(dat_abm$race))/length(dat_abm$race)
 # 1. apply function way
 
 colSums(is.na(dat_abm))/nrow(dat_abm) # little better
+
+
 # colMeans(is.na(dat_abm))
 # apply(dat_abm, 2,function(x) sum(is.na(x))/length(x))  #basically a apply() function to loop over each variable
 
-# library(tidyverse)
 
-# 2. tidyverse way
+# 2. tidyverse way, much more convenient and easier to read.
 
 dat_abm |> 
   summarise(across(everything(), ~ mean(is.na(.))))
-
 
 ```
 
@@ -560,7 +611,7 @@ apply(dat_abm[sapply(dat_abm,is.numeric)], 2,quantile,probs=c(0.25,0.75),na.rm=T
 
 dat_abm |> 
   select(!where(haven::is.labelled)) |>
-  summarise(across(where(is.numeric), ~ quantile(.x, probs=c(0.25,0.75),na.rm = TRUE)))
+  reframe(across(where(is.numeric), ~ quantile(.x, probs=c(0.25,0.75),na.rm = TRUE)))
 
 # dat_abm %>%
 #   summarise(across(where(is.numeric), list(first_quartile= ~ quantile(.x, probs=0.25,na.rm = TRUE),third_quartile= ~ quantile(.x, probs=0.75,na.rm = TRUE))))  # need manipulation to get into the desired form.
@@ -598,7 +649,7 @@ dat_abm |>
 # range  same information of min and max
 dat_abm |>
   select(!where(haven::is.labelled)) |>
-  summarise(across(where(is.numeric), ~ range(.x, na.rm = TRUE)))
+  reframe(across(where(is.numeric), ~ range(.x, na.rm = TRUE)))
 
 
 # IQR
@@ -614,13 +665,14 @@ dat_abm |>
   select(!where(haven::is.labelled)) |>
   summarise(across(where(is.numeric), ~ (sd(.x, na.rm = TRUE))/(mean(.x, na.rm = TRUE))))
 
-
 ```
 
 
 #### visualization
 
 ```{r}
+#install.packages("ggplot2") #1st time require installing the package.
+
 library(ggplot2)
 
 # histogram
@@ -642,7 +694,6 @@ ggplot(dat_abm, aes(x=blood_wbc)) +
   ggtitle("Histogram for WBC variable at Bin size = 3")+
   theme_minimal()
 
-  
 
 ```
 
@@ -662,7 +713,7 @@ dat_abm |>
 table(dat_abm$race)
 prop.table(table(dat_abm$race))
 
-# Tidy verse way
+# Tidyverse way
 
 dat_abm |> 
   group_by(race) |> 
@@ -678,9 +729,13 @@ dat_abm |>
 
 ```{r}
 #barplot
+ggplot(dat_abm, aes(x=haven::as_factor(race), fill=haven::as_factor(race))) +
+  geom_bar() +
+  xlab("Race") +
+  ylab("Count") +
+  ggtitle("Barplot for Race") +
+  theme_classic()
 
-ggplot(dat_abm, aes(x=as.factor(race), fill=as.factor(race))) +  
-  geom_bar( )
 ```
 
 ### Super easy way to do univariate descriptive analysis.
@@ -746,7 +801,7 @@ dat_clean |>
     geom_jitter(color="black", size=0.4, alpha=0.9) + # adding datapoints.
     ggtitle("A boxplot for WBC by race")
 
-# ciolin
+# vciolin
 dat_clean |> 
   ggplot( aes(x=race, y=blood_wbc, fill=race)) + # I add not delete NA normally won't include
     geom_violin()+
