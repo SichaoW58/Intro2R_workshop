@@ -40,6 +40,26 @@ editor:
 Quarto document is a markdown-based format for authoring documents, presentations, and websites. There are hierarchical sections, which are defined by the number of #. The more #, the lower level of section. You can use different level of sections to organize your document.
 
 
+```{r}
+#| label: load-packages
+#| eval: true
+#| echo: true
+
+# At the very beginning of each script or R session. You usually load the required packages and set seed for random process. 
+
+library(tidyverse)
+library(medicaldata)
+library(readr)
+library(Hmisc)
+library(ggmosaic)
+library(GGally)
+
+
+set.seed(123) # set seed for random process. Any number can be used. I like to use my MSU ZPIN.
+```
+
+
+
 # R built-in Help facility
 ## Help functions
 
@@ -1022,3 +1042,15 @@ ggpairs( title="correlogram with ggpairs()")
 
 
 ## A lot of more to explore!!!
+
+
+
+```{r}
+#| label: session-info
+#| eval: true
+#| echo: true
+
+# At the end of each script, list out all session information includes R and packages versions. 
+
+sessionInfo()
+```
